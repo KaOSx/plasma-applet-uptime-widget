@@ -1,5 +1,6 @@
 /*
  * Copyright 2015  Martin Kotelnik <clearmartin@seznam.cz>
+ * Copyright 2024  Anke Boersma <demm@kaosx.us>
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License as
@@ -14,12 +15,14 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http: //www.gnu.org/licenses/>.
  */
-import QtQuick 2.2
-import QtQuick.Layouts 1.1
-import org.kde.plasma.plasmoid 2.0
-import org.kde.plasma.core 2.0 as PlasmaCore
+import QtQuick
+import QtQuick.Layouts
+import org.kde.plasma.plasmoid
+import org.kde.plasma.core as PlasmaCore
+import org.kde.plasma.components 3.0 as PlasmaComponents
+import org.kde.plasma.plasma5support as P5Support
 
-Item {
+PlasmoidItem {
     id: main
     
     anchors.fill: parent
@@ -27,7 +30,7 @@ Item {
     property bool vertical: (plasmoid.formFactor == PlasmaCore.Types.Vertical)
     property bool planar: (plasmoid.formFactor == PlasmaCore.Types.Planar)
     
-    property bool inTray: (plasmoid.parent === null || plasmoid.parent.objectName === 'taskItemContainer')
+    property bool inTray: (plasmoid.parent === null) // || plasmoid.parent.objectName === 'taskItemContainer')
     
     property bool squareLayout: inTray || plasmoid.configuration.squareLayout
     
@@ -60,29 +63,33 @@ Item {
         minutesFullCircle: minutesFullCircleSetting
     }
     
-    Plasmoid.preferredRepresentation: Plasmoid.compactRepresentation
-    Plasmoid.compactRepresentation: cr
+    preferredRepresentation: compactRepresentation
+    compactRepresentation: cr
     
     Component.onCompleted: {
         if (!inTray) {
-            Plasmoid.fullRepresentation = cr
+            fullRepresentation = cr
         }
+        
+        dataSource.exec('cat /proc/uptime')
     }
     
-    PlasmaCore.DataSource {
+    P5Support.DataSource {
         id: dataSource
-        engine: 'systemmonitor'
+        engine: 'executable'
 
-        connectedSources: [ 'system/uptime' ]
+        connectedSources: []
+
+        function exec(cmd) {
+            connectSource(cmd)
+        }
         
         onNewData: {
-            if (data.value === undefined) {
+            var value = data["stdout"];
+            if (value === undefined || value == "") {
                 return
             }
-            if (sourceName === 'system/uptime') {
-                var seconds = Math.round(data.value)
-                secondsValue = seconds
-            }
+            secondsValue = Math.round(value.split(' ')[0])
         }
         interval: 1000
     }

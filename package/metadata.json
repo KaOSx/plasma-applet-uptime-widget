@@ -1,0 +1,22 @@
+{
+    "KPackageStructure": "Plasma/Applet",
+    "KPlugin": {
+        "Name": "Uptime Widget",
+        "Id": "org.kde.uptimewidget",
+        "Description": "Plasmoid for viewing uptime",
+        "Category": "System Information",
+		"Icon": "chronometer",
+		"Authors": [
+			{
+				"Email": "demm@kaosx.us",
+				"Name": "Anke Boersma"
+			}
+		],
+        "Version": "2.0.0",
+		"License": "GPL2",
+		"Website": "https://github.com/KaOSx/plasma-applet-uptime-widget",
+		"BugReportUrl": "https://kaosx.us/bugs"
+    },
+    "X-Plasma-API-Minimum-Version": "6.0"
+}
+

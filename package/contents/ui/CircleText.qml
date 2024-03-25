@@ -1,5 +1,6 @@
 /*
  * Copyright 2015  Martin Kotelnik <clearmartin@seznam.cz>
+ * Copyright 2024  Anke Boersma <demm@kaosx.us>
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License as
@@ -14,9 +15,10 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http: //www.gnu.org/licenses/>.
  */
-import QtQuick 2.2
-import QtQuick.Layouts 1.1
-import QtGraphicalEffects 1.0
+import QtQuick
+import QtQuick.Layouts
+import Qt5Compat.GraphicalEffects
+import org.kde.kirigami as Kirigami
 
 Item {
     
@@ -68,7 +70,7 @@ Item {
         onPaint: {
             var ctx = getContext('2d')
             ctx.clearRect(0, 0, canvas.width, canvas.height)
-            ctx.fillStyle = theme.highlightColor
+            ctx.fillStyle = Kirigami.Theme.highlightColor
 
             var startRadian = - Math.PI / 2
 
@@ -89,7 +91,7 @@ Item {
         text: numberValue
         font.pixelSize: fontPixelSize
         font.pointSize: -1
-        color: theme.textColor
+        color: Kirigami.Theme.textColor
         visible: showNumber || mouseIn
     }
     
@@ -99,7 +101,7 @@ Item {
         samples: 8
         spread: 0.8
         fast: true
-        color: theme.backgroundColor
+        color: Kirigami.Theme.backgroundColor
         source: valueText
         visible: showNumber || mouseIn
     }
@@ -112,7 +114,7 @@ Item {
         text: valueLabel
         font.pixelSize: fontPixelSize * 0.65
         font.pointSize: -1
-        color: theme.textColor
+        color: Kirigami.Theme.textColor
         visible: showLabel || mouseIn
     }
 }

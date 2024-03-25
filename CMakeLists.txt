@@ -1,10 +1,13 @@
-cmake_minimum_required(VERSION 2.8.12 FATAL_ERROR)
+cmake_minimum_required(VERSION 3.16.0 FATAL_ERROR)
 
-find_package(ECM 0.0.11 REQUIRED NO_MODULE)
+project(uptimeWidget)
+
+find_package(ECM 6.0.0 REQUIRED NO_MODULE)
 set(CMAKE_MODULE_PATH ${ECM_MODULE_PATH} ${ECM_KDE_MODULE_DIR})
 
-find_package(KF5Plasma)
+find_package(Plasma REQUIRED)
+find_package(Plasma5Support REQUIRED)
 
-add_subdirectory(translations)
+#add_subdirectory(translations)
 
-plasma_install_package(package org.kde.uptimeWidget)
+plasma_install_package(package org.kde.uptimewidget)

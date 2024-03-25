@@ -1,5 +1,6 @@
 /*
  * Copyright 2015  Martin Kotelnik <clearmartin@seznam.cz>
+ * Copyright 2024  Anke Boersma <demm@kaosx.us>
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License as
@@ -14,12 +15,12 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http: //www.gnu.org/licenses/>.
  */
-import QtQuick 2.2
-import QtQuick.Layouts 1.1
-import org.kde.plasma.plasmoid 2.0
-import QtQuick.Controls 1.3
+import QtQuick
+import QtQuick.Layouts
+import org.kde.plasma.plasmoid
+import QtQuick.Controls
 
-Item {
+PlasmoidItem {
     id: compactRepresentation
     
     property bool daysFullCircle
@@ -65,8 +66,8 @@ Item {
     
     property bool mouseIn: false
     
-    Plasmoid.toolTipMainText: i18n('Uptime')
-    Plasmoid.toolTipSubText: daysCircle.numberValue + ' days, ' + hoursCircle.numberValue + ':' + (minsCircle.numberValue >= 10 ? minsCircle.numberValue : '0' + minsCircle.numberValue)
+    toolTipMainText: i18n('Uptime')
+    toolTipSubText: daysCircle.numberValue + ' days, ' + hoursCircle.numberValue + ':' + (minsCircle.numberValue >= 10 ? minsCircle.numberValue : '0' + minsCircle.numberValue)
     
     onDaysFullCircleChanged: daysCircle.repaint()
     onHoursFullCircleChanged: hoursCircle.repaint()
